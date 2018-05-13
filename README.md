@@ -13,7 +13,7 @@ Laravel package for GDAX integration.
 
 Make sure all dependencies have been installed before moving on:
 
-* [PHP](http://php.net/manual/en/install.php) >= 7.0
+* [PHP](http://php.net/manual/en/install.php) >= 7.1.0
 * [Composer](https://getcomposer.org/download/)
 
 ## Install
