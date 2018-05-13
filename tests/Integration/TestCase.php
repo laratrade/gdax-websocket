@@ -10,6 +10,14 @@ abstract class TestCase extends BaseTestCase
     /**
      * @inheritdoc
      */
+    protected function getEnvironmentSetUp($app)
+    {
+        //
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function getPackageProviders($app)
     {
         return [
