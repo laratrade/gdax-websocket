@@ -4,6 +4,7 @@
     "description": "Laravel package for GDAX integration.",
     "keywords": [
         "laravel",
+        "laratrade",
         "gdax"
     ],
     "homepage": "https://github.com/laratrade/gdax",
