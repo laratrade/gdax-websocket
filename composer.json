@@ -1,13 +1,12 @@
 {
-    "name": "laratrade/gdax-websocket",
+    "name": "laratrade/gdax",
     "type": "library",
-    "description": "Laravel package for GDAX WebSocket.",
+    "description": "Laravel package for GDAX integration.",
     "keywords": [
         "laravel",
-        "gdax",
-        "websocket"
+        "gdax"
     ],
-    "homepage": "https://github.com/laratrade/gdax-websocket",
+    "homepage": "https://github.com/laratrade/gdax",
     "license": "MIT",
     "authors": [
         {
@@ -31,12 +30,12 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Laratrade\\GDAX\\WebSocket": "src"
+            "Laratrade\\GDAX": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laratrade\\GDAX\\WebSocket\\Tests": "tests"
+            "Laratrade\\GDAX\\Tests": "tests"
         }
     },
     "scripts": {
@@ -53,7 +52,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laratrade\\GDAX\\WebSocket\\WebSocketServiceProvider"
+                "Laratrade\\GDAX\\WebSocketServiceProvider"
             ]
         }
     },
