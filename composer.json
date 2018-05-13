@@ -50,7 +50,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laratrade\\GDAX\\WebSocketServiceProvider"
+                "Laratrade\\GDAX\\GDAXServiceProvider"
             ]
         }
     },
