@@ -27,16 +27,13 @@
         "squizlabs/php_codesniffer": "~3.2"
     },
     "autoload": {
-        "files": [
-            "src/helpers.php"
-        ],
         "psr-4": {
-            "Laratrade\\GDAX": "src"
+            "Laratrade\\GDAX\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laratrade\\GDAX\\Tests": "tests"
+            "Laratrade\\GDAX\\Tests\\": "tests"
         }
     },
     "scripts": {
