@@ -4,7 +4,7 @@ namespace Laratrade\GDAX\WebSocket\Tests\Unit;
 
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Laratrade\GDAX\WebSocket\WebSocket\Subscriber;
+use Laratrade\GDAX\WebSocket\Subscriber;
 use Mockery as m;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\WebSocket;

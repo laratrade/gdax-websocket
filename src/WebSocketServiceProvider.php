@@ -6,7 +6,6 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Support\ServiceProvider;
 use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
 use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContract;
-use Laratrade\GDAX\WebSocket\WebSocket\Subscriber;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\Factory;
