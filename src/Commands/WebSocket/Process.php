@@ -2,6 +2,7 @@
 
 namespace Laratrade\GDAX\Commands\WebSocket;
 
+use Illuminate\Config\Repository as RepositoryContract;
 use Illuminate\Console\Command;
 use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
 use Ratchet\Client\Connector;
@@ -30,6 +31,13 @@ class Process extends Command
     protected $connector;
 
     /**
+     * The config repository instance.
+     *
+     * @var RepositoryContract
+     */
+    protected $config;
+
+    /**
      * The subscriber instance.
      *
      * @var SubscriberContract
@@ -40,13 +48,15 @@ class Process extends Command
      * Create a new command instance.
      *
      * @param Connector          $connector
+     * @param RepositoryContract $config
      * @param SubscriberContract $subscriber
      */
-    public function __construct(Connector $connector, SubscriberContract $subscriber)
+    public function __construct(Connector $connector, RepositoryContract $config, SubscriberContract $subscriber)
     {
         parent::__construct();
 
         $this->connector  = $connector;
+        $this->config     = $config;
         $this->subscriber = $subscriber;
     }
 
@@ -58,7 +68,7 @@ class Process extends Command
     public function handle(): void
     {
         $connector  = $this->connector;
-        $connection = $connector(config('websocket.url'));
+        $connection = $connector($this->config->get('websocket.url'));
 
         $this->subscriber->subscribe($connection);
     }
