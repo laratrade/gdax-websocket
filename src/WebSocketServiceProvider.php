@@ -65,12 +65,10 @@ class WebSocketServiceProvider extends ServiceProvider
      */
     protected function registerServices(): self
     {
-        // React loop
         $this->app->bind(LoopContract::class, function () {
             return Factory::create();
         });
 
-        // Ratchet connector
         $this->app->singleton(RatchetConnector::class, function ($app) {
             /** @var LoopContract $loop */
             $loop = $app->make(LoopContract::class);
@@ -87,7 +85,6 @@ class WebSocketServiceProvider extends ServiceProvider
             return $connector;
         });
 
-        // Websocket subscriber
         $this->app->bind(SubscriberContract::class, function ($app) {
             return new Subscriber(
                 $app->make(LoggerContract::class),
