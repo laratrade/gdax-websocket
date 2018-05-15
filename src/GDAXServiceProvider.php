@@ -69,7 +69,7 @@ class GDAXServiceProvider extends ServiceProvider
             return Factory::create();
         });
 
-        // Connector
+        // Ratchet connector
         $this->app->singleton(RatchetConnector::class, function ($app) {
             /** @var LoopContract $loop */
             $loop = $app->make(LoopContract::class);
@@ -86,8 +86,8 @@ class GDAXServiceProvider extends ServiceProvider
             return $connector;
         });
 
-        // Subscriber
-        $this->app->bind(SubscriberContract::class, function ($app) {
+        // Websocket subscriber
+        $this->app->bind(SubscriberContract::class, function () {
             return new Subscriber(config('websocket.events'));
         });
 
