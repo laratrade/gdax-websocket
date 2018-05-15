@@ -3,14 +3,21 @@
 namespace Laratrade\GDAX\WebSocket;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
 use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\WebSocket;
 use Ratchet\RFC6455\Messaging\MessageInterface as MessageContract;
 use React\Promise\PromiseInterface as PromiseContract;
 
 class Subscriber implements SubscriberContract
 {
+    /**
+     * The logger instance.
+     *
+     * @var LoggerContract
+     */
+    protected $logger;
+
     /**
      * The event mappings.
      *
@@ -21,10 +28,12 @@ class Subscriber implements SubscriberContract
     /**
      * Create a new subscriber instance.
      *
-     * @param array $events
+     * @param LoggerContract $logger
+     * @param array          $events
      */
-    public function __construct(array $events)
+    public function __construct(LoggerContract $logger, array $events)
     {
+        $this->logger = $logger;
         $this->events = $events;
     }
 
@@ -37,7 +46,7 @@ class Subscriber implements SubscriberContract
      */
     public function onConnect(WebSocket $webSocket): void
     {
-        Log::info('websocket connect');
+        $this->logger->info('websocket connect');
 
         $webSocket->on('message', function (MessageContract $message) {
             $this->onMessage($message);
@@ -67,7 +76,7 @@ class Subscriber implements SubscriberContract
     {
         $payload = json_decode($message);
 
-        Log::info('websocket message', compact('payload'));
+        $this->logger->info('websocket message', compact('payload'));
 
         if (!isset($payload->type) || !isset($this->events[$payload->type])) {
             return;
@@ -86,7 +95,7 @@ class Subscriber implements SubscriberContract
      */
     public function onDisconnect(int $code = null, string $reason = null): void
     {
-        Log::warning('websocket disconnect', compact('code', 'reason'));
+        $this->logger->warning('websocket disconnect', compact('code', 'reason'));
     }
 
     /**
@@ -98,7 +107,7 @@ class Subscriber implements SubscriberContract
      */
     public function onError(Exception $exception): void
     {
-        Log::error('websocket error', compact('exception'));
+        $this->logger->error('websocket error', compact('exception'));
     }
 
     /**
