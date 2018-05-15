@@ -1,10 +1,10 @@
 <?php
 
-namespace Laratrade\GDAX\Tests\Integration;
+namespace Laratrade\GDAX\WebSocket\Tests\Integration;
 
 use Illuminate\Support\Facades\Artisan;
-use Laratrade\GDAX\Commands\WebSocket\Process;
-use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
+use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContract;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\LoopInterface as LoopContract;
 

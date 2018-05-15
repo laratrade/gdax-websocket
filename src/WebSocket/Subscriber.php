@@ -1,10 +1,10 @@
 <?php
 
-namespace Laratrade\GDAX\WebSocket;
+namespace Laratrade\GDAX\WebSocket\WebSocket;
 
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
-use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContract;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\WebSocket;
 use Ratchet\RFC6455\Messaging\MessageInterface as MessageContract;

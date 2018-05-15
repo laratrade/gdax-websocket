@@ -1,8 +1,8 @@
 <?php
 
-namespace Laratrade\GDAX\Tests\Integration;
+namespace Laratrade\GDAX\WebSocket\Tests\Integration;
 
-use Laratrade\GDAX\GDAXServiceProvider;
+use Laratrade\GDAX\WebSocket\GDAXServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
