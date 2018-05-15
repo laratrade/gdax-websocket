@@ -3,6 +3,7 @@
 namespace Laratrade\GDAX;
 
 use Illuminate\Support\ServiceProvider;
+use Laratrade\GDAX\Commands\WebSocket\Process;
 use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
 use Laratrade\GDAX\WebSocket\Subscriber;
 use Ratchet\Client\Connector as RatchetConnector;
@@ -102,7 +103,7 @@ class GDAXServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                //
+                Process::class,
             ]);
         }
 
