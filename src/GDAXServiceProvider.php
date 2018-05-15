@@ -3,6 +3,8 @@
 namespace Laratrade\GDAX;
 
 use Illuminate\Support\ServiceProvider;
+use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Laratrade\GDAX\WebSocket\Subscriber;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface as LoopContract;
@@ -81,6 +83,11 @@ class GDAXServiceProvider extends ServiceProvider
             });
 
             return $connector;
+        });
+
+        // Subscriber
+        $this->app->bind(SubscriberContract::class, function ($app) {
+            return new Subscriber(config('websocket.events'));
         });
 
         return $this;
