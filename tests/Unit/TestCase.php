@@ -1,6 +1,6 @@
 <?php
 
-namespace Laratrade\GDAX\Tests\Unit;
+namespace Laratrade\GDAX\WebSocket\Tests\Unit;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 

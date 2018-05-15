@@ -1,6 +1,6 @@
 <?php
 
-namespace Laratrade\GDAX\Tests\Unit;
+namespace Laratrade\GDAX\WebSocket\Tests\Unit;
 
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;

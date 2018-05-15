@@ -1,8 +1,8 @@
 <?php
 
-namespace Laratrade\GDAX\Tests\Integration;
+namespace Laratrade\GDAX\WebSocket\Tests\Integration;
 
-use Laratrade\GDAX\GDAXServiceProvider;
+use Laratrade\GDAX\WebSocket\WebSocketServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -12,9 +12,9 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('websocket.dns', '1.1.1.1');
-        $app['config']->set('websocket.timeout', 5);
-        $app['config']->set('websocket.events', []);
+        $app['config']->set('gdax-websocket.dns', '1.1.1.1');
+        $app['config']->set('gdax-websocket.timeout', 5);
+        $app['config']->set('gdax-websocket.events', []);
     }
 
     /**
@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-            GDAXServiceProvider::class,
+            WebSocketServiceProvider::class,
         ];
     }
 }

@@ -1,19 +1,18 @@
 <?php
 
-namespace Laratrade\GDAX;
+namespace Laratrade\GDAX\WebSocket;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Support\ServiceProvider;
-use Laratrade\GDAX\Commands\WebSocket\Process;
-use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
-use Laratrade\GDAX\WebSocket\Subscriber;
+use Laratrade\GDAX\WebSocket\Console\ProcessCommand;
+use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface as LoopContract;
 use React\Socket\Connector as ReactConnector;
 
-class GDAXServiceProvider extends ServiceProvider
+class WebSocketServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
@@ -36,8 +35,8 @@ class GDAXServiceProvider extends ServiceProvider
     protected function configure(): self
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/gdax.php',
-            'gdax'
+            __DIR__ . '/../config/gdax-websocket.php',
+            'gdax-websocket'
         );
 
         return $this;
@@ -52,8 +51,8 @@ class GDAXServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/gdax.php' => config_path('gdax.php'),
-            ], 'gdax');
+                __DIR__ . '/../config/gdax-websocket.php' => config_path('gdax-websocket.php'),
+            ], 'gdax-websocket');
         }
 
         return $this;
@@ -77,8 +76,8 @@ class GDAXServiceProvider extends ServiceProvider
             $loop = $app->make(LoopContract::class);
 
             $connector = new RatchetConnector($loop, new ReactConnector($loop, [
-                'dns'     => config('websocket.dns'),
-                'timeout' => config('websocket.timeout'),
+                'dns'     => config('gdax-websocket.dns'),
+                'timeout' => config('gdax-websocket.timeout'),
             ]));
 
             register_shutdown_function(function () use ($loop) {
@@ -93,7 +92,7 @@ class GDAXServiceProvider extends ServiceProvider
             return new Subscriber(
                 $app->make(LoggerContract::class),
                 $app->make(DispatcherContract::class),
-                config('websocket.events')
+                config('gdax-websocket.events')
             );
         });
 
@@ -109,7 +108,7 @@ class GDAXServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Process::class,
+                ProcessCommand::class,
             ]);
         }
 

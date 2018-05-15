@@ -1,4 +1,4 @@
-# Laravel GDAX
+# Laravel GDAX WebSocket
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Laravel package for GDAX integration.
+Laravel package for GDAX WebSocket processing.
 
 ## Requirements
 
@@ -21,7 +21,7 @@ Make sure all dependencies have been installed before moving on:
 Pull the package via Composer:
 
 ``` bash
-$ composer require laratrade/gdax
+$ composer require laratrade/gdax-websocket
 ```
 
 ## Usage
@@ -46,16 +46,16 @@ If you discover any security related issues, please use the issue tracker.
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/laratrade/gdax.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/laratrade/gdax-websocket.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/laratrade/gdax/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/laratrade/gdax.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/laratrade/gdax.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/laratrade/gdax.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/laratrade/gdax-websocket/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/laratrade/gdax-websocket.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/laratrade/gdax-websocket.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/laratrade/gdax-websocket.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/laratrade/gdax
-[link-travis]: https://travis-ci.org/laratrade/gdax
-[link-scrutinizer]: https://scrutinizer-ci.com/g/laratrade/gdax/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/laratrade/gdax
-[link-downloads]: https://packagist.org/packages/laratrade/gdax
+[link-packagist]: https://packagist.org/packages/laratrade/gdax-websocket
+[link-travis]: https://travis-ci.org/laratrade/gdax-websocket
+[link-scrutinizer]: https://scrutinizer-ci.com/g/laratrade/gdax-websocket/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/laratrade/gdax-websocket
+[link-downloads]: https://packagist.org/packages/laratrade/gdax-websocket
 [link-contributors]: ../../contributors
