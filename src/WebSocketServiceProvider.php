@@ -37,7 +37,7 @@ class WebSocketServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/gdax.php',
-            'gdax'
+            'gdax-websocket'
         );
 
         return $this;
@@ -53,7 +53,7 @@ class WebSocketServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/gdax.php' => config_path('gdax.php'),
-            ], 'gdax');
+            ], 'gdax-websocket');
         }
 
         return $this;
