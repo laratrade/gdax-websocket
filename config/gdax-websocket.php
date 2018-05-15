@@ -1,14 +1,14 @@
 <?php
 
-use Laratrade\GDAX\WebSocket\Events\TickReceived;
-
 return [
+
+    'url' => 'wss://ws-feed.gdax.com',
 
     'dns'     => '1.1.1.1',
     'timeout' => 5,
 
     'events' => [
-        'ticker' => TickReceived::class,
+        'ticker' => \Laratrade\GDAX\WebSocket\Events\TickReceived::class,
     ],
 
 ];
