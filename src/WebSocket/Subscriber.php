@@ -3,6 +3,7 @@
 namespace Laratrade\GDAX\WebSocket;
 
 use Exception;
+use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Laratrade\GDAX\Contracts\WebSocket\Subscriber as SubscriberContract;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\WebSocket;
@@ -19,6 +20,13 @@ class Subscriber implements SubscriberContract
     protected $logger;
 
     /**
+     * The dispatcher instance.
+     *
+     * @var DispatcherContract
+     */
+    protected $dispatcher;
+
+    /**
      * The event mappings.
      *
      * @var array
@@ -28,13 +36,15 @@ class Subscriber implements SubscriberContract
     /**
      * Create a new subscriber instance.
      *
-     * @param LoggerContract $logger
-     * @param array          $events
+     * @param LoggerContract     $logger
+     * @param DispatcherContract $dispatcher
+     * @param array              $events
      */
-    public function __construct(LoggerContract $logger, array $events)
+    public function __construct(LoggerContract $logger, DispatcherContract $dispatcher, array $events)
     {
-        $this->logger = $logger;
-        $this->events = $events;
+        $this->logger     = $logger;
+        $this->dispatcher = $dispatcher;
+        $this->events     = $events;
     }
 
     /**
@@ -77,7 +87,7 @@ class Subscriber implements SubscriberContract
             return;
         }
 
-        event(new $this->events[$payload->type]($payload));
+        $this->dispatcher->dispatch(new $this->events[$payload->type]($payload));
     }
 
     /**
