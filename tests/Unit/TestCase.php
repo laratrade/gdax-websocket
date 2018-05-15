@@ -2,9 +2,9 @@
 
 namespace Laratrade\GDAX\Tests\Unit;
 
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends MockeryTestCase
 {
     //
 }
