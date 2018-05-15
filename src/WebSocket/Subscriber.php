@@ -79,7 +79,7 @@ class Subscriber implements SubscriberContract
      */
     public function onMessage(MessageContract $message): void
     {
-        $payload = json_decode($message);
+        $payload = json_decode($message->getPayload());
 
         $this->logger->info('websocket message', compact('payload'));
 
