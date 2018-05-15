@@ -18,10 +18,12 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "illuminate/support": "5.5.*|5.6.*"
+        "php": ">=7.1.0",
+        "illuminate/support": "5.5.*|5.6.*",
+        "ratchet/pawl": "~0.3"
     },
     "require-dev": {
+        "mockery/mockery": "~1.1",
         "orchestra/testbench": "~3.5|~3.6",
         "phpunit/phpunit": "~6.0|~7.0",
         "squizlabs/php_codesniffer": "~3.2"
@@ -41,7 +43,7 @@
         "phpunit": "phpunit",
         "phpunit-integration": "phpunit --testsuite Integration",
         "phpunit-unit": "phpunit --testsuite Unit",
-        "phpunit-coverage": "phpunit --coverage-clover=coverage.clover",
+        "phpunit-coverage": "phpunit --testdox --coverage-clover=coverage.clover",
         "test": [
             "@lint",
             "@phpunit-coverage"
