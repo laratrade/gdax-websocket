@@ -8,7 +8,7 @@ use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContrac
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\LoopInterface as LoopContract;
 
-class GDAXServiceProviderTest extends TestCase
+class WebSocketServiceProviderTest extends TestCase
 {
     /** @test */
     public function it_registers_the_services()

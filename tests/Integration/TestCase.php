@@ -2,7 +2,7 @@
 
 namespace Laratrade\GDAX\WebSocket\Tests\Integration;
 
-use Laratrade\GDAX\WebSocket\GDAXServiceProvider;
+use Laratrade\GDAX\WebSocket\WebSocketServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-            GDAXServiceProvider::class,
+            WebSocketServiceProvider::class,
         ];
     }
 }

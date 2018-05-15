@@ -13,7 +13,7 @@ use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface as LoopContract;
 use React\Socket\Connector as ReactConnector;
 
-class GDAXServiceProvider extends ServiceProvider
+class WebSocketServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
