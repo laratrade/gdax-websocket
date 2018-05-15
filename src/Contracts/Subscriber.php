@@ -1,6 +1,6 @@
 <?php
 
-namespace Laratrade\GDAX\WebSocket\Contracts\WebSocket;
+namespace Laratrade\GDAX\WebSocket\Contracts;
 
 use Exception;
 use Ratchet\Client\WebSocket;

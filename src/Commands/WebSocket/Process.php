@@ -4,7 +4,7 @@ namespace Laratrade\GDAX\WebSocket\Commands\WebSocket;
 
 use Illuminate\Config\Repository as RepositoryContract;
 use Illuminate\Console\Command;
-use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Ratchet\Client\Connector;
 
 class Process extends Command

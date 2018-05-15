@@ -4,7 +4,7 @@ namespace Laratrade\GDAX\WebSocket\Tests\Unit\Commands;
 
 use Illuminate\Config\Repository as RepositoryContract;
 use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
-use Laratrade\GDAX\WebSocket\Contracts\WebSocket\Subscriber as SubscriberContract;
+use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Laratrade\GDAX\WebSocket\Tests\Unit\TestCase;
 use Mockery as m;
 use Ratchet\Client\Connector;
