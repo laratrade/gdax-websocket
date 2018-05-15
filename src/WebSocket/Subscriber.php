@@ -48,13 +48,8 @@ class Subscriber implements SubscriberContract
     {
         $this->logger->info('websocket connect');
 
-        $webSocket->on('message', function (MessageContract $message) {
-            $this->onMessage($message);
-        });
-
-        $webSocket->on('close', function (int $code = null, string $reason = null) {
-            $this->onDisconnect($code, $reason);
-        });
+        $webSocket->on('message', [$this, 'onMessage']);
+        $webSocket->on('close', [$this, 'onDisconnect']);
 
         $webSocket->send(json_encode([
             'type'        => 'subscribe',
@@ -117,10 +112,6 @@ class Subscriber implements SubscriberContract
      */
     public function subscribe(PromiseContract $connection): void
     {
-        $connection->then(function (WebSocket $webSocket) {
-            $this->onConnect($webSocket);
-        }, function (Exception $exception) {
-            $this->onError($exception);
-        });
+        $connection->then([$this, 'onConnect'], [$this, 'onError']);
     }
 }
