@@ -3,7 +3,7 @@
 namespace Laratrade\GDAX\WebSocket\Tests\Integration;
 
 use Illuminate\Support\Facades\Artisan;
-use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
+use Laratrade\GDAX\WebSocket\Console\ProcessCommand;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\LoopInterface as LoopContract;
@@ -25,6 +25,6 @@ class WebSocketServiceProviderTest extends TestCase
     /** @test */
     public function it_registers_the_commands()
     {
-        $this->assertInstanceOf(Process::class, Artisan::all()['gdax:websocket:process']);
+        $this->assertInstanceOf(ProcessCommand::class, Artisan::all()['gdax:websocket:process']);
     }
 }

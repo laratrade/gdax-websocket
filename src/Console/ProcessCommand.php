@@ -1,13 +1,13 @@
 <?php
 
-namespace Laratrade\GDAX\WebSocket\Commands\WebSocket;
+namespace Laratrade\GDAX\WebSocket\Console;
 
 use Illuminate\Config\Repository as RepositoryContract;
 use Illuminate\Console\Command;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Ratchet\Client\Connector;
 
-class Process extends Command
+class ProcessCommand extends Command
 {
     /**
      * The name and signature of the console command.

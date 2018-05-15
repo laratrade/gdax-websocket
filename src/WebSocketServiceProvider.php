@@ -4,7 +4,7 @@ namespace Laratrade\GDAX\WebSocket;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Support\ServiceProvider;
-use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
+use Laratrade\GDAX\WebSocket\Console\ProcessCommand;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\Connector as RatchetConnector;
@@ -108,7 +108,7 @@ class WebSocketServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Process::class,
+                ProcessCommand::class,
             ]);
         }
 

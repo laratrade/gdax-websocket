@@ -3,14 +3,14 @@
 namespace Laratrade\GDAX\WebSocket\Tests\Unit\Commands;
 
 use Illuminate\Config\Repository as RepositoryContract;
-use Laratrade\GDAX\WebSocket\Commands\WebSocket\Process;
+use Laratrade\GDAX\WebSocket\Console\ProcessCommand;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Laratrade\GDAX\WebSocket\Tests\Unit\TestCase;
 use Mockery as m;
 use Ratchet\Client\Connector;
 use React\Promise\PromiseInterface as PromiseContract;
 
-class ProcessTest extends TestCase
+class ProcessCommandTest extends TestCase
 {
     /** @test */
     public function it_executes_the_command()
@@ -26,6 +26,6 @@ class ProcessTest extends TestCase
         $subscriber = m::mock(SubscriberContract::class);
         $subscriber->shouldReceive('subscribe')->with($promise);
 
-        (new Process($connector, $config, $subscriber))->handle();
+        (new ProcessCommand($connector, $config, $subscriber))->handle();
     }
 }
