@@ -5,6 +5,7 @@ namespace Laratrade\GDAX\Contracts\WebSocket;
 use Exception;
 use Ratchet\Client\WebSocket;
 use Ratchet\RFC6455\Messaging\MessageInterface as MessageContract;
+use React\Promise\PromiseInterface as PromiseContract;
 
 interface Subscriber
 {
@@ -44,4 +45,11 @@ interface Subscriber
      * @return void
      */
     public function onError(Exception $exception): void;
+
+    /**
+     * Register the listeners for the subscriber.
+     *
+     * @param PromiseContract $connection
+     */
+    public function subscribe(PromiseContract $connection): void;
 }
