@@ -12,9 +12,9 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('websocket.dns', '1.1.1.1');
-        $app['config']->set('websocket.timeout', 5);
-        $app['config']->set('websocket.events', []);
+        $app['config']->set('gdax-websocket.dns', '1.1.1.1');
+        $app['config']->set('gdax-websocket.timeout', 5);
+        $app['config']->set('gdax-websocket.events', []);
     }
 
     /**

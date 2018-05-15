@@ -35,7 +35,7 @@ class WebSocketServiceProvider extends ServiceProvider
     protected function configure(): self
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/gdax.php',
+            __DIR__ . '/../config/gdax-websocket.php',
             'gdax-websocket'
         );
 
@@ -51,7 +51,7 @@ class WebSocketServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/gdax.php' => config_path('gdax.php'),
+                __DIR__ . '/../config/gdax-websocket.php' => config_path('gdax-websocket.php'),
             ], 'gdax-websocket');
         }
 
@@ -76,8 +76,8 @@ class WebSocketServiceProvider extends ServiceProvider
             $loop = $app->make(LoopContract::class);
 
             $connector = new RatchetConnector($loop, new ReactConnector($loop, [
-                'dns'     => config('websocket.dns'),
-                'timeout' => config('websocket.timeout'),
+                'dns'     => config('gdax-websocket.dns'),
+                'timeout' => config('gdax-websocket.timeout'),
             ]));
 
             register_shutdown_function(function () use ($loop) {
@@ -92,7 +92,7 @@ class WebSocketServiceProvider extends ServiceProvider
             return new Subscriber(
                 $app->make(LoggerContract::class),
                 $app->make(DispatcherContract::class),
-                config('websocket.events')
+                config('gdax-websocket.events')
             );
         });
 
