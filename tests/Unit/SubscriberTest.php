@@ -41,6 +41,23 @@ class SubscriberTest extends TestCase
     }
 
     /** @test */
+    public function it_handles_the_message_event_with_unknown_type()
+    {
+        $logger = m::mock(LoggerContract::class);
+        $logger->shouldReceive('info')->once()->with('websocket message', m::on(function ($value) {
+            return is_a($value['payload'], stdClass::class);
+        }));
+
+        $dispatcher = m::mock(DispatcherContract::class);
+        $dispatcher->shouldNotReceive('dispatch');
+
+        $message = m::mock(MessageContract::class);
+        $message->shouldReceive('getPayload')->once()->andReturn('{"type":"ticker"}');
+
+        (new Subscriber($logger, $dispatcher, []))->onMessage($message);
+    }
+
+    /** @test */
     public function it_handles_the_message_event()
     {
         $logger = m::mock(LoggerContract::class);
