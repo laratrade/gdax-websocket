@@ -21,6 +21,7 @@
     "require": {
         "php": ">=7.1.0",
         "illuminate/support": "5.5.*|5.6.*",
+        "nasyrov/laravel-enums": "~1.1",
         "ratchet/pawl": "~0.3"
     },
     "require-dev": {
