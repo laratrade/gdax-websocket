@@ -5,10 +5,10 @@ namespace Laratrade\GDAX\WebSocket\Enums;
 use Nasyrov\Laravel\Enums\Enum;
 
 /**
- * @method static OrderSideEnum GTC()
- * @method static OrderSideEnum GTT()
- * @method static OrderSideEnum IOC()
- * @method static OrderSideEnum FOK()
+ * @method static TimeInForceEnum GTC()
+ * @method static TimeInForceEnum GTT()
+ * @method static TimeInForceEnum IOC()
+ * @method static TimeInForceEnum FOK()
  */
 class TimeInForceEnum extends Enum
 {
