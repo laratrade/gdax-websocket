@@ -3,6 +3,7 @@
 namespace Laratrade\GDAX\WebSocket;
 
 use Exception;
+use Illuminate\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
 use Psr\Log\LoggerInterface as LoggerContract;
@@ -20,6 +21,13 @@ class Subscriber implements SubscriberContract
     protected $logger;
 
     /**
+     * The config repository instance.
+     *
+     * @var RepositoryContract
+     */
+    protected $config;
+
+    /**
      * The dispatcher instance.
      *
      * @var DispatcherContract
@@ -27,24 +35,20 @@ class Subscriber implements SubscriberContract
     protected $dispatcher;
 
     /**
-     * The event mappings.
-     *
-     * @var array
-     */
-    protected $events;
-
-    /**
      * Create a new subscriber instance.
      *
      * @param LoggerContract     $logger
+     * @param RepositoryContract $config
      * @param DispatcherContract $dispatcher
-     * @param array              $events
      */
-    public function __construct(LoggerContract $logger, DispatcherContract $dispatcher, array $events)
-    {
+    public function __construct(
+        LoggerContract $logger,
+        RepositoryContract $config,
+        DispatcherContract $dispatcher
+    ) {
         $this->logger     = $logger;
+        $this->config     = $config;
         $this->dispatcher = $dispatcher;
-        $this->events     = $events;
     }
 
     /**
@@ -63,10 +67,8 @@ class Subscriber implements SubscriberContract
 
         $webSocket->send(json_encode([
             'type'        => 'subscribe',
-            'product_ids' => [],
-            'channels'    => [
-                'ticker',
-            ],
+            'product_ids' => $this->config->get('gdax-websocket.products'),
+            'channels'    => $this->config->get('gdax-websocket.channels'),
         ]));
     }
 
@@ -83,11 +85,13 @@ class Subscriber implements SubscriberContract
 
         $this->logger->info('websocket message', compact('payload'));
 
-        if (!isset($payload->type) || !isset($this->events[$payload->type])) {
+        if (!isset($payload->type)) {
             return;
         }
 
-        $this->dispatcher->dispatch(new $this->events[$payload->type]($payload));
+        $event = $this->config->get(sprintf('gdax-websocket.events.%s', $payload->type));
+
+        $event && $this->dispatcher->dispatch(new $event($payload));
     }
 
     /**

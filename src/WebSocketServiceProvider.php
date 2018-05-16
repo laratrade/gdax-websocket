@@ -2,11 +2,9 @@
 
 namespace Laratrade\GDAX\WebSocket;
 
-use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Support\ServiceProvider;
 use Laratrade\GDAX\WebSocket\Console\ProcessCommand;
 use Laratrade\GDAX\WebSocket\Contracts\Subscriber as SubscriberContract;
-use Psr\Log\LoggerInterface as LoggerContract;
 use Ratchet\Client\Connector as RatchetConnector;
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface as LoopContract;
@@ -85,13 +83,7 @@ class WebSocketServiceProvider extends ServiceProvider
             return $connector;
         });
 
-        $this->app->bind(SubscriberContract::class, function ($app) {
-            return new Subscriber(
-                $app->make(LoggerContract::class),
-                $app->make(DispatcherContract::class),
-                config('gdax-websocket.events')
-            );
-        });
+        $this->app->bind(SubscriberContract::class, Subscriber::class);
 
         return $this;
     }
