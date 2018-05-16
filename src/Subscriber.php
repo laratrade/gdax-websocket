@@ -35,13 +35,6 @@ class Subscriber implements SubscriberContract
     protected $dispatcher;
 
     /**
-     * The event mappings.
-     *
-     * @var array
-     */
-    protected $events;
-
-    /**
      * Create a new subscriber instance.
      *
      * @param LoggerContract     $logger
@@ -56,7 +49,6 @@ class Subscriber implements SubscriberContract
         $this->logger     = $logger;
         $this->config     = $config;
         $this->dispatcher = $dispatcher;
-        $this->events     = $this->config->get('gdax-websocket.events', []);
     }
 
     /**
