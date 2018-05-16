@@ -3,6 +3,7 @@
 namespace Laratrade\GDAX\WebSocket\Tests\Unit;
 
 use Exception;
+use Illuminate\Config\Repository as RepositoryContract;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Laratrade\GDAX\WebSocket\Subscriber;
 use Mockery as m;
@@ -20,6 +21,10 @@ class SubscriberTest extends TestCase
         $logger = m::mock(LoggerContract::class);
         $logger->shouldReceive('info')->once()->with('websocket connect');
 
+        $config = m::mock(RepositoryContract::class);
+        $config->shouldReceive('get')->once()->with('gdax-websocket.products')->andReturn([]);
+        $config->shouldReceive('get')->once()->with('gdax-websocket.channels')->andReturn([]);
+
         $dispatcher = m::mock(DispatcherContract::class);
 
         $webSocket = m::mock(WebSocket::class);
@@ -32,12 +37,10 @@ class SubscriberTest extends TestCase
         $webSocket->shouldReceive('send')->once()->with(json_encode([
             'type'        => 'subscribe',
             'product_ids' => [],
-            'channels'    => [
-                'ticker',
-            ],
+            'channels'    => [],
         ]));
 
-        (new Subscriber($logger, $dispatcher, []))->onConnect($webSocket);
+        (new Subscriber($logger, $config, $dispatcher))->onConnect($webSocket);
     }
 
     /** @test */
@@ -48,13 +51,16 @@ class SubscriberTest extends TestCase
             return is_a($value['payload'], stdClass::class);
         }));
 
+        $config = m::mock(RepositoryContract::class);
+        $config->shouldReceive('get')->once()->with('gdax-websocket.events.ticker')->andReturnNull();
+
         $dispatcher = m::mock(DispatcherContract::class);
         $dispatcher->shouldNotReceive('dispatch');
 
         $message = m::mock(MessageContract::class);
         $message->shouldReceive('getPayload')->once()->andReturn('{"type":"ticker"}');
 
-        (new Subscriber($logger, $dispatcher, []))->onMessage($message);
+        (new Subscriber($logger, $config, $dispatcher))->onMessage($message);
     }
 
     /** @test */
@@ -65,6 +71,9 @@ class SubscriberTest extends TestCase
             return is_a($value['payload'], stdClass::class);
         }));
 
+        $config = m::mock(RepositoryContract::class);
+        $config->shouldReceive('get')->once()->with('gdax-websocket.events.ticker')->andReturn(stdClass::class);
+
         $dispatcher = m::mock(DispatcherContract::class);
         $dispatcher->shouldReceive('dispatch')->once()->with(m::on(function ($value) {
             return is_a($value, stdClass::class);
@@ -73,7 +82,7 @@ class SubscriberTest extends TestCase
         $message = m::mock(MessageContract::class);
         $message->shouldReceive('getPayload')->once()->andReturn('{"type":"ticker"}');
 
-        (new Subscriber($logger, $dispatcher, ['ticker' => stdClass::class]))->onMessage($message);
+        (new Subscriber($logger, $config, $dispatcher))->onMessage($message);
     }
 
     /** @test */
@@ -85,9 +94,11 @@ class SubscriberTest extends TestCase
         $logger = m::mock(LoggerContract::class);
         $logger->shouldReceive('warning')->once()->with('websocket disconnect', compact('code', 'reason'));
 
+        $config = m::mock(RepositoryContract::class);
+
         $dispatcher = m::mock(DispatcherContract::class);
 
-        (new Subscriber($logger, $dispatcher, []))->onDisconnect($code, $reason);
+        (new Subscriber($logger, $config, $dispatcher))->onDisconnect($code, $reason);
     }
 
     /** @test */
@@ -98,15 +109,19 @@ class SubscriberTest extends TestCase
         $logger = m::mock(LoggerContract::class);
         $logger->shouldReceive('error')->once()->with('websocket error', compact('exception'));
 
+        $config = m::mock(RepositoryContract::class);
+
         $dispatcher = m::mock(DispatcherContract::class);
 
-        (new Subscriber($logger, $dispatcher, []))->onError($exception);
+        (new Subscriber($logger, $config, $dispatcher))->onError($exception);
     }
 
     /** @test */
     public function it_registers_the_listeners()
     {
         $logger = m::mock(LoggerContract::class);
+
+        $config = m::mock(RepositoryContract::class);
 
         $dispatcher = m::mock(DispatcherContract::class);
 
@@ -117,6 +132,6 @@ class SubscriberTest extends TestCase
             return is_callable($value);
         }));
 
-        (new Subscriber($logger, $dispatcher, []))->subscribe($connection);
+        (new Subscriber($logger, $config, $dispatcher))->subscribe($connection);
     }
 }
