@@ -85,13 +85,9 @@ class Subscriber implements SubscriberContract
 
         $this->logger->info('websocket message', compact('payload'));
 
-        if (!isset($payload->type)) {
-            return;
+        if (isset($payload->type) && $event = $this->config->get(sprintf('gdax-websocket.events.%s', $payload->type))) {
+            $this->dispatcher->dispatch(new $event($payload));
         }
-
-        $event = $this->config->get(sprintf('gdax-websocket.events.%s', $payload->type));
-
-        $event && $this->dispatcher->dispatch(new $event($payload));
     }
 
     /**
